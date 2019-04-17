@@ -15,9 +15,3 @@ spec:
       - backend:
           serviceName: myproject
           servicePort: 80
-  - host: {{ release_name }}.myproject.{{ ingress_domain }}
-    http:
-      paths:
-      - backend:
-          serviceName: myproject
-          servicePort: 80

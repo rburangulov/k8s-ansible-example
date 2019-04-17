@@ -1,0 +1,53 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: myproject
+  namespace: {{ namespace }}
+  labels:
+    app: myproject
+spec:
+  replicas: {{ myproject.replica_count }}
+  selector:
+    matchLabels:
+      app: myproject
+  template:
+    metadata:
+      labels:
+        app: myproject
+    spec:
+      containers:
+      - name: myproject
+        image: "{{ myproject.image_name }}:{{ myproject.image_tag }}"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+        volumeMounts:
+        - name: myproject-env
+          mountPath: /opt/myproject/.env
+          subPath: .env
+        - name: tz-config
+          mountPath: /etc/localtime
+        resources:
+          limits:
+            memory: {{ myproject.resources.limits.memory }}
+            cpu: {{ myproject.resources.limits.cpu }}
+          requests:
+            memory: {{ myproject.resources.requests.memory }}
+            cpu: {{ myproject.resources.requests.cpu }}
+      imagePullSecrets:
+      - name: {{ registry_credential_secret }}
+      volumes:
+      - name: myproject-env
+        configMap:
+          name: myproject-env
+      - name: tz-config
+        hostPath:
+          path: /usr/share/zoneinfo/Europe/Moscow

@@ -1,0 +1,23 @@
+- name: Deploy myproject env configmap
+  k8s_raw:
+    kubeconfig: "{{ kubeconfig_file }}"
+    state: present
+    definition: "{{ lookup('template', '{{ role_path }}/templates/myproject-env-configmap.yaml') | from_yaml }}"
+
+- name: Deploy myproject deployment
+  k8s_raw:
+    kubeconfig: "{{ kubeconfig_file }}"
+    state: present
+    definition: "{{ lookup('template', '{{ role_path }}/templates/myproject-deployment.yaml') | from_yaml }}"
+
+- name: Deploy myproject service
+  k8s_raw:
+    kubeconfig: "{{ kubeconfig_file }}"
+    state: present
+    definition: "{{ lookup('template', '{{ role_path }}/templates/myproject-service.yaml') | from_yaml }}"
+
+- name: Deploy myproject ingress
+  k8s_raw:
+    kubeconfig: "{{ kubeconfig_file }}"
+    state: present
+    definition: "{{ lookup('template', '{{ role_path }}/templates/myproject-ingress.yaml') | from_yaml }}"

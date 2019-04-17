@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myproject-env
+  namespace: {{ namespace }}
+data:
+  .env: |
+     env={{ myproject_env.env }}
+     debug={{ myproject_env.debug }}

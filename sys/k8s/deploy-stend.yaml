@@ -1,0 +1,23 @@
+- name: Create namespace
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+  - vars/stend.yaml
+  tasks:
+    - name: Create namespace
+      k8s:
+        kubeconfig: "{{ kubeconfig_file }}"
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Namespace
+          metadata:
+            name: "{{ namespace }}"
+
+- name: Deploy myproject stend
+  hosts: localhost
+  gather_facts: no
+  roles:
+  - deploy_myproject
+  vars_files:
+  - vars/stend.yaml

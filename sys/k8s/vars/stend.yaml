@@ -1,0 +1,21 @@
+kubeconfig_file: ~/.kube/config
+registry_credential_secret: shot-registry-credential
+dockerconfigjson:
+namespace: "myproject-{{ release_name }}"
+ingress_domain: test.ru
+
+myproject:
+  replica_count: 1
+  image_name: docker-registry.ru/myproject
+  image_tag: "{{ myproject_image_tag }}"
+  resources:
+    limits:
+      memory: 4Gi
+      cpu: 1000m
+    requests:
+      memory: 1Gi
+      cpu: 10m
+
+myproject_env:
+  env: dev
+  debug: 0

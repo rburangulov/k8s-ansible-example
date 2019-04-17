@@ -1,0 +1,5 @@
+- name: Deploy registry credential secret
+  k8s_raw:
+    kubeconfig: "{{ kubeconfig_file }}"
+    state: present
+    definition: "{{ lookup('template', '{{ role_path }}/templates/registry-credential.yaml') | from_yaml }}"

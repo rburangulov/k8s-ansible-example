@@ -1,6 +1,4 @@
 kubeconfig_file: ~/.kube/config
-registry_credential_secret: shot-registry-credential
-dockerconfigjson:
 namespace: "myproject-{{ release_name }}"
 ingress_domain: test.ru
 

@@ -2,7 +2,7 @@
   hosts: localhost
   gather_facts: no
   vars_files:
-  - vars/stend.yaml
+  - vars/test.yaml
   tasks:
     - name: Create namespace
       k8s:
@@ -14,10 +14,10 @@
           metadata:
             name: "{{ namespace }}"
 
-- name: Deploy myproject stend
+- name: Deploy myproject 
   hosts: localhost
   gather_facts: no
   roles:
   - deploy_myproject
   vars_files:
-  - vars/stend.yaml
+  - vars/test.yaml
